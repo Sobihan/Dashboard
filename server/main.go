@@ -9,7 +9,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -21,7 +20,7 @@ type Response struct {
 	Answer string `json:"answer"`
 }
 
-// Utils
+/* Utils */
 func getFile(path string) string {
 
     file, err := os.Open(path)
@@ -64,7 +63,7 @@ func isUser(user string) bool {
     return true
 }
 
-func createAnswer(ans string) Response{
+func createAnswer(ans string) Response	{
 
 	ret := Response {
 		Answer: ans,
@@ -73,52 +72,10 @@ func createAnswer(ans string) Response{
 	return ret
 }
 
+/* Network Utils */
+func sendAnswer(w http.ResponseWriter, r *http.Request, s string)	{
 
-// Routes
-func Login(w http.ResponseWriter, r *http.Request) {
-
-	b, err := ioutil.ReadAll(r.Body)
-	defer r.Body.Close()
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-
-	var data map[string]interface{}
-	erro := json.Unmarshal([]byte(b), &data)
-    if erro != nil {
-        panic(erro)
-	}
-
-	user := data["username"].(string)
-	pass := data["password"].(string)
-
-	if isUser(user) {
-		if readPassword(user) == pass {
-
-			ans, err := json.Marshal(createAnswer("ok"))
-			if err != nil {
-				http.Error(w, err.Error(), 500)
-				return
-			}
-
-			w.Header().Set("content-type", "application/json")
-			w.Write(ans)
-			return
-		}
-
-		ans, err := json.Marshal(createAnswer("bad password"))
-		if err != nil {
-			http.Error(w, err.Error(), 500)
-			return
-		}
-
-		w.Header().Set("content-type", "application/json")
-		w.Write(ans)
-		return
-	}
-
-	ans, err := json.Marshal(createAnswer("user doesn't exists"))
+	ans, err := json.Marshal(createAnswer(s))
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -126,6 +83,46 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("content-type", "application/json")
 	w.Write(ans)
+}
+
+func getBody(w http.ResponseWriter, r *http.Request) map[string]interface{} {
+
+	var data map[string]interface{}
+
+	b, err := ioutil.ReadAll(r.Body)
+	defer r.Body.Close()
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return data
+	}
+
+	erro := json.Unmarshal([]byte(b), &data)
+    if erro != nil {
+        panic(erro)
+	}
+
+	return data
+}
+
+/* Routes */
+func Login(w http.ResponseWriter, r *http.Request) {
+
+	data := getBody(w, r)
+
+	user := data["username"].(string)
+	pass := data["password"].(string)
+
+	if isUser(user) {
+		if readPassword(user) == pass {
+			sendAnswer(w, r, "ok")
+			return
+		}
+
+		sendAnswer(w, r, "bad password")
+		return
+	}
+
+	sendAnswer(w, r, "user doesn't exists")
 }
 
 func main() {
