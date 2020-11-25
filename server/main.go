@@ -98,6 +98,29 @@ func createCredentials(username string, password string) {
     }
 }
 
+func getEpoch() string {
+
+	data := time.Now().Unix()
+
+	datastr := strconv.FormatInt(data, 10)
+	return datastr
+}
+
+func getClientIP(r *http.Request) string {
+
+	IPAddress := r.Header.Get("X-Real-Ip")
+
+	if IPAddress == "" {
+		IPAddress = r.Header.Get("X-Forwarded-For")
+    }
+
+	if IPAddress == "" {
+        IPAddress = r.RemoteAddr
+	}
+
+	return IPAddress
+}
+
 /* Network Utils */
 
 func createAnswer(ans string) Response	{
@@ -192,6 +215,16 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 	sendAnswer(w, r, "ok")
 }
 
+func epoch(w http.ResponseWriter, r *http.Request) {
+
+	sendAnswer(w, r, getEpoch())
+}
+
+func host(w http.ResponseWriter, r *http.Request) {
+
+	sendAnswer(w, r, getClientIP(r))
+}
+
 func about(w http.ResponseWriter, r *http.Request) {
 
 	if isFile("about.json") {
@@ -200,6 +233,9 @@ func about(w http.ResponseWriter, r *http.Request) {
 		var jsonMap map[string]interface{}
 
 		json.Unmarshal([]byte(content), &jsonMap)
+
+		jsonMap["customer"].(map[string]interface{})["host"] = getClientIP(r)
+		jsonMap["server"].(map[string]interface{})["current_time"] = getEpoch()
 
 		ans, err := json.Marshal(jsonMap)
 		if err != nil {
@@ -216,21 +252,16 @@ func about(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func epoch(w http.ResponseWriter, r *http.Request) {
-
-	data := time.Now().Unix()
-
-	datastr := strconv.FormatInt(data, 10)
-	sendAnswer(w, r, datastr)
-}
-
 /* Core */
 func main() {
 
 	http.HandleFunc("/login", Login)
 	http.HandleFunc("/createAccount", CreateAccount)
-	http.HandleFunc("/about.json", about)
+
 	http.HandleFunc("/epoch", epoch)
+	http.HandleFunc("/host", host)
+
+	http.HandleFunc("/about.json", about)
 
 	port := ":8000"
 
