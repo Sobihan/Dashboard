@@ -109,6 +109,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	data := getBody(w, r)
 
+	if data["username"] == nil || data["password"] == nil {
+		sendAnswer(w, r, "request error")
+		return
+	}
+
 	user := data["username"].(string)
 	pass := data["password"].(string)
 
@@ -125,9 +130,15 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	sendAnswer(w, r, "user doesn't exists")
 }
 
+func CreateAccount(w http.ResponseWriter, r *http.Request) {
+
+}
+
+/* Core */
 func main() {
 
 	http.HandleFunc("/login", Login)
+	http.HandleFunc("/createAccount", CreateAccount)
 
 	port := ":8000"
 
