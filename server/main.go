@@ -300,6 +300,42 @@ func setConfig(w http.ResponseWriter, r *http.Request) {
 	sendAnswer(w, r, "ok")
 }
 
+func getConfig(w http.ResponseWriter, r *http.Request) {
+
+	data := getBody(w, r)
+
+	if data["username"] == nil {
+		sendAnswer(w, r, "request error")
+		return
+	}
+
+	user := data["username"].(string)
+
+	if isFile(user) {
+		sendAnswer(w, r, "no user config")
+		return
+	}
+
+	content := getFile(user + "Config.json")
+
+	var jsonMap map[string]interface{}
+
+	json.Unmarshal([]byte(content), &jsonMap)
+
+	jsonMap["customer"].(map[string]interface{})["host"] = getClientIP(r)
+	jsonMap["server"].(map[string]interface{})["current_time"] = getEpoch()
+
+	ans, err := json.Marshal(jsonMap)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	w.Header().Set("content-type", "application/json")
+	w.Write(ans)
+	return
+}
+
 /* Core */
 func main() {
 
@@ -307,6 +343,7 @@ func main() {
 	http.HandleFunc("/createAccount", CreateAccount)
 
 	http.HandleFunc("/setConfig", setConfig)
+	http.HandleFunc("/getConfig", getConfig)
 
 	http.HandleFunc("/epoch", epoch)
 	http.HandleFunc("/host", host)
