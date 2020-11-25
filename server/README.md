@@ -14,6 +14,10 @@ Client ask to:
 POST http://localhost:8080/login
 ```
 Body JSON format:
+
+var:
+- "username" : username to login
+- "password" : password of the username to login
 ```json
 {
     "username": "$username",
@@ -46,6 +50,10 @@ Client ask to:
 POST http://localhost:8080/createAccount
 ```
 Body JSON format:
+
+var:
+- "username" : username to create an account
+- "password" : password of the username to create an account
 ```json
 {
     "username": "$username",

@@ -8,15 +8,6 @@ The client is made with React Native
 
 The server is made with golang
 
-## Build
-
-This project require CMake and conan
-
-You can using the build.sh at the root of the repo:
-```
-./build.sh
-```
-
 ## Usage
 
 The client :
