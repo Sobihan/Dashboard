@@ -3,6 +3,7 @@ import Login from './login'
 import {Temperature, Humidity} from './Meteo'
 import ReactDOM from 'react-dom'
 import {NewsCountry, NewsSubject} from './News'
+import {GetProfile, Likes} from './Twitter'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -14,13 +15,11 @@ export default class App extends React.Component {
   render() {
     if (this.state.isLogin == false) {
       return (
-        <NewsSubject Subject='bitcoin'/>
+          <Likes profileName='PSG_inside'/>
       )
     } else {
       return (
-      <div>
-        connecte
-      </div>
+        <NewsSubject Subject='bitcoin'/>
       )}
   }
 }
