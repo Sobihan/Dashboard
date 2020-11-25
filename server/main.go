@@ -65,6 +65,15 @@ func isUser(user string) bool {
     return true
 }
 
+func isFile(path string) bool {
+
+    _, err := os.Open(path)
+    if err != nil {
+        return false
+    }
+    return true
+}
+
 func createCredentials(username string, password string) {
 
     credentials := "{\n\t\"username\": \"" + username + "\",\n" + "\t\"password\": \"" + password + "\"\n}"
@@ -181,11 +190,36 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 	sendAnswer(w, r, "ok")
 }
 
+func about(w http.ResponseWriter, r *http.Request) {
+
+	if isFile("about.json") {
+		content := getFile("about.json")
+
+		var jsonMap map[string]interface{}
+
+		json.Unmarshal([]byte(content), &jsonMap)
+
+		ans, err := json.Marshal(jsonMap)
+		if err != nil {
+			http.Error(w, err.Error(), 500)
+			return
+		}
+
+		w.Header().Set("content-type", "application/json")
+		w.Write(ans)
+		return
+	}
+
+	sendAnswer(w, r, "server error")
+
+}
+
 /* Core */
 func main() {
 
 	http.HandleFunc("/login", Login)
 	http.HandleFunc("/createAccount", CreateAccount)
+	http.HandleFunc("/about.json", about)
 
 	port := ":8000"
 
