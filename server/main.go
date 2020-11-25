@@ -43,6 +43,8 @@ func getFile(path string) string {
 	return f
 }
 
+
+/* Server Logic */
 func readPassword(usr string) string {
 
 	var result map[string]interface{}
@@ -61,15 +63,6 @@ func isUser(user string) bool {
         return false
     }
     return true
-}
-
-func createAnswer(ans string) Response	{
-
-	ret := Response {
-		Answer: ans,
-	}
-
-	return ret
 }
 
 func createCredentials(username string, password string) {
@@ -95,6 +88,16 @@ func createCredentials(username string, password string) {
 }
 
 /* Network Utils */
+
+func createAnswer(ans string) Response	{
+
+	ret := Response {
+		Answer: ans,
+	}
+
+	return ret
+}
+
 func sendAnswer(w http.ResponseWriter, r *http.Request, s string)	{
 
 	ans, err := json.Marshal(createAnswer(s))
