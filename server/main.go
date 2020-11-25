@@ -8,12 +8,14 @@
 package main
 
 import (
+    "time"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
     "bufio"
 	"os"
+	"strconv"
 )
 
 type Response struct {
@@ -214,12 +216,21 @@ func about(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func epoch(w http.ResponseWriter, r *http.Request) {
+
+	data := time.Now().Unix()
+
+	datastr := strconv.FormatInt(data, 10)
+	sendAnswer(w, r, datastr)
+}
+
 /* Core */
 func main() {
 
 	http.HandleFunc("/login", Login)
 	http.HandleFunc("/createAccount", CreateAccount)
 	http.HandleFunc("/about.json", about)
+	http.HandleFunc("/epoch", epoch)
 
 	port := ":8000"
 
