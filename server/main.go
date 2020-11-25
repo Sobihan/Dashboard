@@ -172,12 +172,7 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if isUser(user) {
-		if isUser(user + "Config") {
-			sendAnswer(w, r, "username already used")
-			return
-		}
-
+	if isUser(user) || isUser(user + "Config") {
 		sendAnswer(w, r, "username already used")
 		return
 	}
