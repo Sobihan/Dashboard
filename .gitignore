@@ -45,3 +45,6 @@ doc/
 
 #SQLite3 files
 *.db
+
+#Personal shit
+server/*.json
