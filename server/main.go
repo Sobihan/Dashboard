@@ -16,6 +16,7 @@ import (
     "bufio"
 	"os"
 	"strconv"
+	"fmt"
 )
 
 type Response struct {
@@ -44,7 +45,6 @@ func getFile(path string) string {
 	}
 	return f
 }
-
 
 /* Server Logic */
 func readPassword(usr string) string {
@@ -252,11 +252,61 @@ func about(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func setConfig(w http.ResponseWriter, r *http.Request) {
+
+	body := getBody(w, r)
+
+	if body == nil {
+		sendAnswer(w, r, "request error")
+		return
+	}
+
+	user := body["username"]
+	data := body["data"]
+
+	out, errno := json.Marshal(data)
+	if errno != nil {
+		http.Error(w, errno.Error(), 500)
+		return
+	}
+
+	if isFile(user.(string) + "Config.json") {
+		e := os.Remove(user.(string) + "Config.json")
+		if e != nil {
+			log.Fatal(e)
+		}
+	}
+
+    f, err := os.Create(user.(string) + "Config.json")
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+	l, err := f.WriteString(string(out))
+	_ = l
+    if err != nil {
+        fmt.Println(err)
+        f.Close()
+        return
+    }
+
+    err = f.Close()
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+	sendAnswer(w, r, "ok")
+}
+
 /* Core */
 func main() {
 
 	http.HandleFunc("/login", Login)
 	http.HandleFunc("/createAccount", CreateAccount)
+
+	http.HandleFunc("/setConfig", setConfig)
 
 	http.HandleFunc("/epoch", epoch)
 	http.HandleFunc("/host", host)
