@@ -6,7 +6,7 @@ This application will have widget according to services
 
 The client is made with React Native
 
-The server is made with C++
+The server is made with golang
 
 ## Build
 
