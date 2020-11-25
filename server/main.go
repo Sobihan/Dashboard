@@ -72,6 +72,28 @@ func createAnswer(ans string) Response	{
 	return ret
 }
 
+func createCredentials(username string, password string) {
+
+    credentials := "{\n\t\"username\": \"" + username + "\",\n" + "\t\"password\": \"" + password + "\"\n}"
+
+    f, err := os.Create(username + ".json")
+    if err != nil {
+        return
+    }
+
+	l, err := f.WriteString(credentials)
+	_ = l
+    if err != nil {
+        f.Close()
+        return
+    }
+
+    err = f.Close()
+    if err != nil {
+        return
+    }
+}
+
 /* Network Utils */
 func sendAnswer(w http.ResponseWriter, r *http.Request, s string)	{
 
@@ -132,6 +154,33 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 func CreateAccount(w http.ResponseWriter, r *http.Request) {
 
+	data := getBody(w, r)
+
+	if data["username"] == nil || data["password"] == nil {
+		sendAnswer(w, r, "request error")
+		return
+	}
+
+	user := data["username"].(string)
+	pass := data["password"].(string)
+
+	if pass == "" {
+		sendAnswer(w, r, "null password")
+		return
+	}
+
+	if isUser(user) {
+		if isUser(user + "Config") {
+			sendAnswer(w, r, "username already used")
+			return
+		}
+
+		sendAnswer(w, r, "username already used")
+		return
+	}
+
+	createCredentials(user, pass)
+	sendAnswer(w, r, "ok")
 }
 
 /* Core */
