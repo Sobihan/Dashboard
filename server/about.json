@@ -1,0 +1,62 @@
+{
+    "customer": {
+        "host": "10.101.53.35"
+    },
+    "server":{
+        "current_time": 1531680780,
+        "services" : [{
+            "name": "weather",
+            "widgets" : [{
+                "name": "city_temparature",
+                "description": "Display temperature for a city",
+                "params": [{
+                    "name": "city",
+                    "type": "string"
+                }]
+            },{
+                "name": "city_humidiy",
+                "description":"Display the humidiy for a city",
+                "params": [{
+                    "name": "city",
+                    "type": "string"
+                }]
+            }]
+        },{
+            "name":"twitter",
+            "widgets":[{
+                "name": "twitter profil",
+                "description": "Display last tweets of a user",
+                "params": [{
+                    "name": "twitter profil",
+                    "type": "string"
+                }]
+            }, {
+                "name": "twitter likes",
+                "description": "Display last likes of a user",
+                "params": [{
+                    "name": "twitter profil",
+                    "type": "string"
+                }]
+            }]
+        }, {
+            "name": "news",
+            "widgets": [{
+                "name": "country news",
+                "description": "Display a news about a country",
+                "params": [{
+                    "name": "ISO 3166-1 of a country",
+                    "type": "string"
+                }]
+            }, {
+                "name":"subjet news",
+                "description": "Display a news about a subject",
+                "params":[{
+                    "name":"subject",
+                    "type":"string"
+                }
+                ]
+            }]
+        }
+    ]
+    }
+}
