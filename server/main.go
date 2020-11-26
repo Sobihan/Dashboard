@@ -156,9 +156,7 @@ func getBody(w http.ResponseWriter, r *http.Request) map[string]interface{} {
 	}
 
 	erro := json.Unmarshal([]byte(b), &data)
-    if erro != nil {
-        panic(erro)
-	}
+	_ = erro
 
 	return data
 }
@@ -166,9 +164,12 @@ func getBody(w http.ResponseWriter, r *http.Request) map[string]interface{} {
 /* Routes */
 func Login(w http.ResponseWriter, r *http.Request) {
 
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+    w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
 	data := getBody(w, r)
 
-	if data["username"] == nil || data["password"] == nil {
+	if data["username"] == nil || data["password"] == nil || data == nil {
 		sendAnswer(w, r, "request error")
 		return
 	}
@@ -190,6 +191,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateAccount(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+    w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	data := getBody(w, r)
 
@@ -217,15 +221,22 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 
 func epoch(w http.ResponseWriter, r *http.Request) {
 
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+    w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	sendAnswer(w, r, getEpoch())
 }
 
 func host(w http.ResponseWriter, r *http.Request) {
 
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+    w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	sendAnswer(w, r, getClientIP(r))
 }
 
 func about(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	if isFile("about.json") {
 		content := getFile("about.json")
@@ -253,6 +264,9 @@ func about(w http.ResponseWriter, r *http.Request) {
 }
 
 func setConfig(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	body := getBody(w, r)
 
@@ -301,6 +315,9 @@ func setConfig(w http.ResponseWriter, r *http.Request) {
 }
 
 func getConfig(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	data := getBody(w, r)
 
