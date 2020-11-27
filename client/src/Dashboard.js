@@ -1,5 +1,4 @@
 import React from 'react';
-import Login from './login'
 import {Temperature, Humidity} from './Meteo'
 import {ReactDOM, unmountComponentAtNode} from 'react-dom'
 import {NewsCountry, NewsSubject} from './News'
@@ -47,17 +46,17 @@ async function removeWidget(service, id)
     window.widgets['server']['services'][index]['widgets'].splice(id, 1);
     console.log(window.widgets['server']['services'][index]['widgets'])
     setConfig(window.user);
+    parseJson();
 }
 
 function parseJson()
 {
-    getConfig(window.user)
-    var widgets = [];
+    window.component = [];
     var weathers = window.widgets['server']['services'][0]['widgets'];
     var twitters = window.widgets['server']['services'][1]['widgets'];
     var news = window.widgets['server']['services'][2]['widgets'];
     if (weathers == [] && twitters == [] && news == [])
-        return (widgets);
+        return (window.component);
     
     for (let i = 0; i < weathers.length; i++) {
         if (weathers[i]["name"] == "city_temparature"){
@@ -73,7 +72,7 @@ function parseJson()
                 <Humidity city={weathers[i]["params"]["name"]}/>
             </div>
         }
-        widgets.push(component);
+        window.component.push(component);
     }
 
     for (let i = 0; i < twitters.length; i++) {
@@ -90,7 +89,7 @@ function parseJson()
                 <Likes profileName={twitters[i]["params"]["name"]}/>
             </div>
         }
-        widgets.push(component);
+        window.component.push(component);
     }
 
     for (let i = 0; i < news.length; i++) {
@@ -107,25 +106,25 @@ function parseJson()
                 <NewsSubject Subject={news[i]["params"]["name"]}/>
             </div>
         }
-        widgets.push(component);
+        window.component.push(component);
     }
 
-    return (widgets);
+    return (window.component);
 }
 
 export default class Dashboard extends React.Component {
     constructor(props)
     {
         super(props);
-        this.state = {
-            widgets : parseJson()
-        }
+        // this.state = {
+        //     widgets : parseJson()
+        // }
         this.parser = this.parser.bind(this);
     }
     parser(){
         console.log("parser")
         console.log(window.widgets.server.services[0])
-        this.state.widgets= parseJson();
+        parseJson();
         this.forceUpdate();
     }
      componentDidMount(){
@@ -138,7 +137,7 @@ export default class Dashboard extends React.Component {
                 <Config/>
                 <div id="widgets">
                 {
-                    this.state.widgets
+                    window.component
                 }
                 </div>
             </div>
