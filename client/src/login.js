@@ -67,7 +67,9 @@ function getConfig(user)
     }).then(res => res.json())
     .then(res => {
         window.widgets = res;
-        console.log(res);
+        if (res["server"]["services"][0]["widgets"][0]["params"][0]["name"] == "city") {
+            reformat(user);
+        }
         window.isLogin = true;
         window.user = user;
         ReactDOM.render(<App/>,  document.getElementById('root'))
