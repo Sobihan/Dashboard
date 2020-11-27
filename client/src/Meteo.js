@@ -28,7 +28,6 @@ export class Temperature extends React.Component
     }
 }
 
-
 export class Humidity extends React.Component
 {
     constructor(props){
@@ -48,8 +47,13 @@ export class Humidity extends React.Component
     }
 
     render() {
+
+    const style = {
+        color: 'white',
+        background: 'dodgerblue'
+    }
         return (
-            <div>
+            <div style={style}>
                 Humidité à {` ${this.state.city} => `}
                 {this.state.humidity}
             </div>
