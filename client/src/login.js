@@ -2,44 +2,30 @@ import React from 'react'
 import GoogleLogin from 'react-google-login';
 import ReactDOM from 'react-dom'
 import App from './App'
-import axios from 'axios'
 
-async function getIp()
+
+function setConfig(usr)
 {
-    var data = await axios.get("https://www.cloudflare.com/cdn-cgi/trace")
-      .then(response=> {
-          return response.data;
-      })
-    return (data.split('\n')[2].split('=')[1]);
-}
-async function createAccountold(user, psw)
-{
-    var form = {
-        username : user,
-        password : psw
-    };
-    var ip = await getIp();
-    var headers = {
-        "X-Real-Ip" : ip,
-        "X-Forwarded-For": ip,
-        "content-type": "application/json"
-    }
-    console.log(typeof form)
-    console.log(headers);
-    fetch('http://localhost:8080/createAccount',{
+    fetch('http://localhost:8080/setConfig', {
         method: 'post',
-        body: {
-            username: user,
-            password: psw
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
         },
-        headers: headers
-    })
-    .then(results => results.json())
-    .then(console.log)
- 
-
+        body: JSON.stringify({username: usr, data: window.widgets})
+    }).then(res => res.json())
+    .then(res => console.log(res))
 }
 
+function reformat(usr)
+{
+    window.widgets['server']['services'][0]['widgets'] = []
+    window.widgets['server']['services'][1]['widgets'] = []
+    window.widgets['server']['services'][2]['widgets'] = []
+
+    console.log(window.widgets);
+    setConfig(usr);
+}
 function createAccount(user, psw)
 {
     fetch('http://localhost:8080/createAccount', {
@@ -48,30 +34,72 @@ function createAccount(user, psw)
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username: 'sobihanduturfu', password: 'motdepassemdr'})
+        body: JSON.stringify({username: user, password: psw})
     }).then(res=>res.json())
-    .then(res => console.log(res));
-}
-
-async function createAccountoled(user, psw)
-{
-    var form = {
-        'username': user,
-        'password': psw
-    };
-    var ip = await getIp();
-    var http = new XMLHttpRequest();
-    var url = 'http://localhost:8080/createAccount'
-    http.open('POST', url);
-    http.setRequestHeader('Content-Type', 'application/json')
-    http.onreadystatechange = function() {//Call a function when the state changes.
-        if(http.readyState == 4 && http.status == 200) {
-            alert(http.responseText);
+    .then(res => {
+        console.log(res['answer'])
+        if (res['answer'] != 'ok') {
+            document.getElementById("error").innerHTML = res['answer'];
+            return;
+        } else {
+            fetch('http://localhost:8080/about.json')
+            .then(res=> res.json())
+            .then(res => {
+                window.widgets = res;
+                reformat(user);
+                window.isLogin = true;
+                window.user = user;
+                ReactDOM.render(<App/>,  document.getElementById('root'))
+            })
         }
-    }
-    http.send(JSON.stringify(form));
+    });
 }
 
+function getConfig(user)
+{
+    fetch('http://localhost:8080/getConfig', {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username: user})
+    }).then(res => res.json())
+    .then(res => {
+        window.widgets = res;
+        console.log(res);
+        window.isLogin = true;
+        window.user = user;
+        ReactDOM.render(<App/>,  document.getElementById('root'))
+    })
+
+}
+function login(user, psw)
+{
+    fetch('http://localhost:8080/login',{
+        method: 'post',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username: user, password: psw})
+    }).then(res => res.json())
+    .then(res => {
+        console.log(res['answer'])
+        if (res['answer'] != 'ok') {
+            document.getElementById("error").innerHTML = res['answer'];
+            return;
+        } else {
+            getConfig(user);
+        }
+    })
+}
+
+function logGoogle(usr)
+{
+    getConfig(usr);
+
+}
 export default class Login extends React.Component {
     constructor(props){ 
         super(props);
@@ -95,15 +123,13 @@ export default class Login extends React.Component {
         this.setState({password:event.target.value})
     }
     handleSubmit(event) {
-        alert("LOGIN")
-
-        window.isLogin = true
-        ReactDOM.render(<App/>,  document.getElementById('root'))
+        login(this.state.username, this.state.password);
         event.preventDefault();
     }
     responseGoogle(response) {
         this.setState({user:response["profileObj"],isGoogle:true})
-        console.log(this.state.user)
+        console.log(this.state.user['email'])
+        logGoogle(this.state.user['email'])
     }
     failureGoogle(response) {
         console.log("Eroororrrr")
@@ -116,6 +142,9 @@ export default class Login extends React.Component {
     render() {
         return (        
         <div>
+            <div id="error">
+
+            </div>
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Usermane:

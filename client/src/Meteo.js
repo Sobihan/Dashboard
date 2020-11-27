@@ -20,7 +20,9 @@ export class Temperature extends React.Component
     render() {
         return (
             <div>
-                {this.state.temperature}
+                Température à {' '}
+                {this.state.city}{" => "}
+                {this.state.temperature}°C
             </div>
         )
     }
@@ -48,6 +50,7 @@ export class Humidity extends React.Component
     render() {
         return (
             <div>
+                Humidité à {` ${this.state.city} => `}
                 {this.state.humidity}
             </div>
         )

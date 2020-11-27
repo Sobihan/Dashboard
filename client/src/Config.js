@@ -1,21 +1,76 @@
 import React from 'react';
-
+import App from './App'
+import ReactDOM from 'react-dom'
 
 function getPlaceholder(value)
 {
-    if (value == 'temperature' || value == 'humidity'){
+    if (value == 'city_temparature' || value == 'city_humidiy'){
         return( 'Exemple: Paris')
     }
-    if (value == 'profil' || value == 'likes') {
+    if (value == 'twitter profil' || value == 'twitter likes') {
         return ('twitterID')
     }
-    if (value == 'pays'){
+    if (value == 'country news'){
         return ('Exemple: US/FR')
     }
-    if (value == 'sujet') {
+    if (value == 'subjet news') {
         return ('bitcoin')
     }
 }
+
+function getDescription(widget)
+{
+    switch(widget){
+        case 'city_temparature':
+            return 'Display temperature for a city'
+        case 'city_humidiy':
+            return 'Display the humidiy for a city'
+        case 'twitter profil':
+            return 'Display last tweets of a user'
+        case 'twitter likes':
+            return 'Display last likes of a user'
+        case 'country news':
+            return 'Display a news about a country'
+        case 'subjet news':
+            return 'Display a news about a subject'
+    }
+}
+
+function setConfig(usr)
+{
+    fetch('http://localhost:8080/setConfig', {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username: usr, data: window.widgets})
+    }).then(res => res.json())
+    .then(res => console.log(res))
+}
+
+function addWidgets(service, widget, config)
+{
+    if (service == 'weather'){
+        var index = 0;
+    } else if (service == 'twitter') {
+        var index = 1;
+    } else {
+        var index = 2;
+    }
+
+    var data = {
+        name: widget,
+        description: getDescription(widget),
+        params: {
+            name: config,
+            type: 'string'
+        }
+    }
+    window.widgets['server']['services'][index]['widgets'].push(data);
+    setConfig(window.user);
+}
+
 export default class Config extends React.Component
 {
     constructor(props)
@@ -46,11 +101,12 @@ export default class Config extends React.Component
     }
     handleSubbmit(event)
     {
-        alert('ON DOIT REQUETE ICIii');
         console.log(this.state)
-        var data = {"widget": this.state.optName, "config": this.state.config};
-        window.widgets["widgets"].push(data);
+        addWidgets(this.state.serviceName, this.state.optName, this.state.config)
         event.preventDefault();
+        this.forceUpdate();
+        ReactDOM.render(<App/>,  document.getElementById('root'));
+
     }
     render() {
         return (
@@ -58,18 +114,18 @@ export default class Config extends React.Component
                 <form onSubmit={this.handleSubbmit}>
                 <select name="service" onChange={this.handleService}> 
                     <option value="">--Services--</option>
-                    <option value="meteo">meteo</option>
+                    <option value="weather">meteo</option>
                     <option value="news">news</option>
                     <option value="twitter">twitter</option>
                 </select>
                 
             {
-                this.state.serviceName == 'meteo'
+                this.state.serviceName == 'weather'
                 ?
                     <select name="option" onChange={this.handleOption}>
                         <option value="">--Options--</option>
-                        <option value="temperature">Temperature</option>
-                        <option value="humidity">humidite</option>
+                        <option value="city_temparature">Temperature</option>
+                        <option value="city_humidiy">humidite</option>
                     </select>
                 : console.log('')
             }
