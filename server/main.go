@@ -328,8 +328,29 @@ func getConfig(w http.ResponseWriter, r *http.Request) {
 
 	user := data["username"].(string)
 
-	if isFile(user) {
-		sendAnswer(w, r, "no user config")
+	if !isFile(user + "Config.json") {
+
+		if isFile("about.json") {
+			content := getFile("about.json")
+
+			var jsonMap map[string]interface{}
+
+			json.Unmarshal([]byte(content), &jsonMap)
+
+			jsonMap["customer"].(map[string]interface{})["host"] = getClientIP(r)
+			jsonMap["server"].(map[string]interface{})["current_time"] = getEpoch()
+
+			ans, err := json.Marshal(jsonMap)
+			if err != nil {
+				http.Error(w, err.Error(), 500)
+				return
+			}
+
+			w.Header().Set("content-type", "application/json")
+			w.Write(ans)
+			return
+		}
+		sendAnswer(w, r, "Missing file")
 		return
 	}
 
