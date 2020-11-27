@@ -14,11 +14,11 @@ The client :
 ```
 ```
 
-The server, dashboard_server:
+The server is wraped with Docker.
+Launch by "docker-compose.yml"
+Command:
 ```
-USAGE: ./dashboard_server port
-
-    port:   Valid port, only numeric characters, 4 char long
+docker-compose up
 ```
 
 ## Documentation

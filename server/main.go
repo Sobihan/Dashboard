@@ -388,7 +388,7 @@ func main() {
 
 	http.HandleFunc("/about.json", about)
 
-	port := ":8000"
+	port := ":8080"
 
 	log.Println("Starting server on address ", port)
 	err := http.ListenAndServe(port, nil)
