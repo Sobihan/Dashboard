@@ -116,10 +116,8 @@ export default class Dashboard extends React.Component {
     constructor(props)
     {
         super(props);
-        // this.state = {
-        //     widgets : parseJson()
-        // }
         this.parser = this.parser.bind(this);
+        parseJson();
     }
     parser(){
         console.log("parser")
