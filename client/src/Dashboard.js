@@ -20,6 +20,10 @@ function getConfig(user)
     })
 }
 
+function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+  }
+
 function setConfig(usr)
 {
     fetch('http://localhost:8080/setConfig', {
