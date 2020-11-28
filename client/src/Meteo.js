@@ -56,13 +56,8 @@ export class Humidity extends React.Component
     }
 
     render() {
-
-    const style = {
-        color: 'white',
-        background: 'dodgerblue'
-    }
         return (
-            <div style={style}>
+            <div>
                 Humidité à {` ${this.state.city} => `}
                 {this.state.humidity}
             </div>
