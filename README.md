@@ -1,17 +1,21 @@
 # Dashboard
 
-Dashboard is a project with the goal to have an application client, and a server
+Dashboard is a project with the goal to have an application client, and a server.
 
-This application will have widget according to services
+This application will have widget according to services.
 
-The client is made with React Native
+The client is made with React JS.
 
-The server is made with golang
+The server is made with golang.
 
 ## Usage
 
-The client :
+The client require React JS 17.0 installed.
+Command:
 ```
+cd client
+npm install
+npm start
 ```
 
 The server is wraped with Docker.
@@ -23,8 +27,6 @@ docker-compose up
 
 ## Documentation
 
-This section is here to give more informations about the following sections:
+You can find respective documentation for the server in the server folder, and for the client in the client folder.
 
-## Services
-
-## Widgets
+The documentation is written inside README.md in the previous said folder.
