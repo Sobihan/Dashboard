@@ -1,38 +1,21 @@
 import React from 'react';
 import App from './App'
 import ReactDOM from 'react-dom'
-import {Temperature, Humidity} from './Meteo'
-import {NewsCountry, NewsSubject} from './News'
-import {GetProfile, Likes} from './Twitter'
+import {parseJson} from './Dashboard'
 
-async function removeWidget(service, id)
-{
-    console.log("Removing.. heuu", service, id)
-    if (service == 'weather'){
-        var index = 0;
-    } else if (service == 'twitter') {
-        var index = 1;
-    } else {
-        var index = 2;
-    }
-    window.widgets['server']['services'][index]['widgets'].splice(id, 1);
-    console.log(window.widgets['server']['services'][index]['widgets'])
-    setConfig(window.user);
-    parseJson();
-}
 
 function getPlaceholder(value)
 {
-    if (value == 'city_temparature' || value == 'city_humidiy'){
+    if (value === 'city_temparature' || value === 'city_humidiy'){
         return( 'Exemple: Paris')
     }
-    if (value == 'twitter profil' || value == 'twitter likes') {
+    if (value === 'twitter profil' || value === 'twitter likes') {
         return ('twitterID')
     }
-    if (value == 'country news'){
+    if (value === 'country news'){
         return ('Exemple: US/FR')
     }
-    if (value == 'subjet news') {
+    if (value === 'subjet news') {
         return ('bitcoin')
     }
 }
@@ -52,6 +35,8 @@ function getDescription(widget)
             return 'Display a news about a country'
         case 'subjet news':
             return 'Display a news about a subject'
+        default:
+            return ''
     }
 }
 
@@ -68,77 +53,16 @@ function setConfig(usr)
     .then(res => console.log(res))
 }
 
-function parseJson()
-{
-    window.component = [];
-    var weathers = window.widgets['server']['services'][0]['widgets'];
-    var twitters = window.widgets['server']['services'][1]['widgets'];
-    var news = window.widgets['server']['services'][2]['widgets'];
-    if (weathers == [] && twitters == [] && news == [])
-        return (window.component);
-    
-    for (let i = 0; i < weathers.length; i++) {
-        if (weathers[i]["name"] == "city_temparature"){
-            var component = <div>
-                <button onClick={() => removeWidget('weather', i)}
-                >SUPPRIMER</button>
-                <Temperature city={weathers[i]["params"]["name"]}/>
-            </div>
-        } else if (weathers[i]["name"] == "city_humidiy"){
-            var component = <div>
-                <button onClick={() => removeWidget('weather', i)}
-                >SUPPRIMER</button>
-                <Humidity city={weathers[i]["params"]["name"]}/>
-            </div>
-        }
-        window.component.push(component);
-    }
-
-    for (let i = 0; i < twitters.length; i++) {
-        if (twitters[i]["name"] == "twitter profil") {
-            var component = <div>
-                 <button onClick={() => removeWidget('twitter', i)}
-                >SUPPRIMER</button>
-                <GetProfile profileName={twitters[i]["params"]["name"]}/>
-            </div>
-        } else if (twitters[i]["name"] == "twitter likes") {
-            var component = <div>
-                <button onClick={() => removeWidget('twitter', i)}
-                >SUPPRIMER</button>
-                <Likes profileName={twitters[i]["params"]["name"]}/>
-            </div>
-        }
-        window.component.push(component);
-    }
-
-    for (let i = 0; i < news.length; i++) {
-        if (news[i]["name"] == "country news"){
-            var component = <div>
-                <button onClick={() => removeWidget('news', i)}
-                >SUPPRIMER</button>
-                <NewsCountry Country={news[i]["params"]["name"]}/>
-                </div>
-        } else if (news[i]["name"] == "subjet news") {
-            var component = <div>
-                 <button onClick={() => removeWidget('news', i)}
-                >SUPPRIMER</button>
-                <NewsSubject Subject={news[i]["params"]["name"]}/>
-            </div>
-        }
-        window.component.push(component);
-    }
-
-    return (window.component);
-}
 
 function addWidgets(service, widget, config)
 {
-    if (service == 'weather'){
-        var index = 0;
-    } else if (service == 'twitter') {
-        var index = 1;
+    var index = 0
+    if (service === 'weather'){
+        index = 0;
+    } else if (service === 'twitter') {
+        index = 1;
     } else {
-        var index = 2;
+        index = 2;
     }
 
     var data = {
@@ -203,7 +127,7 @@ export default class Config extends React.Component
                 </select>
                 
             {
-                this.state.serviceName == 'weather'
+                this.state.serviceName === 'weather'
                 ?
                     <select name="option" onChange={this.handleOption}>
                         <option value="">--Options--</option>
@@ -213,7 +137,7 @@ export default class Config extends React.Component
                 : console.log('')
             }
             {
-                this.state.serviceName == 'news'
+                this.state.serviceName === 'news'
                 ?
                     <select name="option" onChange={this.handleOption}>
                         <option value="">--Options--</option>
@@ -223,7 +147,7 @@ export default class Config extends React.Component
                 : console.log('')
             }
             {
-                this.state.serviceName == 'twitter'
+                this.state.serviceName === 'twitter'
                 ?
                     <select name="option" onChange={this.handleOption}>
                         <option value="">--Options--</option>
@@ -233,13 +157,13 @@ export default class Config extends React.Component
                 : console.log('')
             }
             {
-                this.state.optName != 'none'
+                this.state.optName !== 'none'
                 ?
                 <input type="text" placeholder={getPlaceholder(this.state.optName)} onChange={this.handleConfig}></input>
                 : console.log('')
             }
             {
-                this.state.optName != 'none'
+                this.state.optName !== 'none'
                 ?
                 <input type="submit" value="Creer"></input>
                 :console.log('')

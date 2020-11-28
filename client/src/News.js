@@ -18,14 +18,11 @@ export class NewsCountry extends React.Component
         fetch(`https://newsapi.org/v2/top-headlines?country=${this.state.Country}&apiKey=b537029a9bcd40588d7275100d6e6642`)
         .then(res=> res.json())
         .then(json=> {
-            if (json["articles"].length == 0) {
+            if (json["articles"].length === 0) {
                 this.setState({Article: "article null"})
             } else {
                 this.setState({Articles:json["articles"]})
                 var index = this.state.index + 1;
-                console.log("news", json)
-                console.log()
-                console.log()
                 this.setState({index:index})
 
                 this.setState({Article: json["articles"][index]['content']})
@@ -59,7 +56,7 @@ export class NewsSubject extends React.Component
         fetch(`https://newsapi.org/v2/everything?q=${this.state.Subject}&apiKey=b537029a9bcd40588d7275100d6e6642`)
         .then(res=> res.json())
         .then(json=> {
-            if (json["articles"].length == 0) {
+            if (json["articles"].length === 0) {
                 this.setState({Article: "article null"})
             } else {
                 this.setState({Articles:json["articles"]})

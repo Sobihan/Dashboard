@@ -1,5 +1,5 @@
 import React from 'react'
-import { Timeline, Hashtag } from 'react-twitter-widgets'
+import {Timeline} from 'react-twitter-widgets'
 
 export class GetProfile extends React.Component
 {

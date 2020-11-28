@@ -38,7 +38,7 @@ function createAccount(user, psw)
     }).then(res=>res.json())
     .then(res => {
         console.log(res['answer'])
-        if (res['answer'] != 'ok') {
+        if (res['answer'] !== 'ok') {
             document.getElementById("error").innerHTML = res['answer'];
             return;
         } else {
@@ -67,9 +67,9 @@ function getConfig(user, isGoogle)
     }).then(res => res.json())
     .then(res => {
         window.widgets = res;
-        if (isGoogle == true) {
+        if (isGoogle === true) {
         try {
-        if (res["server"]["services"][0]["widgets"][0]["params"][0]["name"] == "city") {
+        if (res["server"]["services"][0]["widgets"][0]["params"][0]["name"] === "city") {
             reformat(user);
         }
         
@@ -96,7 +96,7 @@ function login(user, psw)
     }).then(res => res.json())
     .then(res => {
         console.log(res['answer'])
-        if (res['answer'] != 'ok') {
+        if (res['answer'] !== 'ok') {
             document.getElementById("error").innerHTML = res['answer'];
             return;
         } else {
@@ -142,7 +142,6 @@ export default class Login extends React.Component {
         logGoogle(this.state.user['email'])
     }
     failureGoogle(response) {
-        console.log("Eroororrrr")
         console.log(response)
     }
     signup(event) {
