@@ -1,0 +1,597 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+
+
+/*---------------------------*/
+/*--------BODY GESTION-------*/
+/*-----------BEGIN-----------*/
+/*---------------------------*/
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: white;
+    font-weight: bold;
+    background-color: #333;
+    text-align: center;
+    margin: 0;
+}
+/*---------------------------*/
+/*------------END------------*/
+/*--------BODY GESTION-------*/
+/*---------------------------*/
+
+
+
+/*---------------------------*/
+/*--------TEXT GESTION-------*/
+/*-----------BEGIN-----------*/
+/*---------------------------*/
+h1 {
+    font-size: 3rem;
+    color: rgb(255, 255, 255);
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    word-spacing: 0%;
+    color: rgb(143, 143, 143);;
+}
+
+h3 {
+    font-size: 1.473rem;
+    font-weight: 300;
+    word-spacing: 0%;
+    color: rgb(143, 143, 143);;
+}
+
+h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    word-spacing: 0%;
+    color: rgb(143, 143, 143);
+}
+
+label {
+    font-size: 1.5rem;
+    color: #676767;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+/*---------------------------*/
+/*------------END------------*/
+/*--------TEXT GESTION-------*/
+/*---------------------------*/
+
+
+
+/*---------------------------*/
+/*-------NAVBAR GESTION------*/
+/*-----------BEGIN-----------*/
+/*---------------------------*/
+nav {
+    word-spacing: 3cm;
+}
+
+.nav-link
+{
+    color: #7c7c7c;
+}
+/*---------------------------*/
+/*------------END------------*/
+/*-------NAVBAR GESTION------*/
+/*---------------------------*/
+
+
+
+/*---------------------------*/
+/*------BUTTON1 GESTION------*/
+/*-----------BEGIN-----------*/
+/*---------------------------*/
+button {
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #ffffff;
+    margin:3em 0.3em 0.3em 0.7em;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 0.8em;
+    color: #333;
+    text-align: center;
+    transition: all 0.2s;
+    bottom: 400px;
+    top: 400px;
+}
+
+button:hover {
+    color: #ffffff;
+    background-color: #333;
+}
+
+@media all and (max-width:30em) {
+    button{
+        display: block;
+        margin: 0.4em auto;
+    }
+}
+/*---------------------------*/
+/*------------END------------*/
+/*------BUTTON1 GESTION------*/
+/*---------------------------*/
+
+
+
+/*---------------------------*/
+/*------BUTTON1 GESTION------*/
+/*-----------BEGIN-----------*/
+/*---------------------------*/
+a.button1 {
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #ffffff;
+    margin:3em 0.3em 0.3em 0.7em;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 0.8em;
+    color: #ffffff;
+    text-align: center;
+    transition: all 0.2s;
+    bottom: 400px;
+    top: 400px;
+}
+
+a.button1:hover {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+@media all and (max-width:30em) {
+    a.button1{
+        display: block;
+        margin: 0.4em auto;
+    }
+}
+/*---------------------------*/
+/*------------END------------*/
+/*------BUTTON1 GESTION------*/
+/*---------------------------*/
+
+
+
+/*---------------------------*/
+/*------BUTTON2 GESTION------*/
+/*-----------BEGIN-----------*/
+/*---------------------------*/
+a.button2{
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #ffffff;
+    margin:0 0.3em 0.3em 0.7em;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 0.8em;
+    color: #ffffff;
+    text-align: center;
+    transition: all 0.2s;
+    bottom: 400px;
+    top: 400px;
+}
+
+a.button2:hover {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+@media all and (max-width:30em) {
+    a.button2{
+        display: block;
+        margin: 0.4em auto;
+    }
+}
+/*---------------------------*/
+/*------------END------------*/
+/*------BUTTON2 GESTION------*/
+/*---------------------------*/
+
+
+
+
+/*---------------------------*/
+/*--------PP GESTION---------*/
+/*----------BEGIN------------*/
+/*---------------------------*/
+.imgcenter {
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top:-25px;
+    margin-left:-25px;
+}
+/*---------------------------*/
+/*--------PP GESTION---------*/
+/*-----------END-------------*/
+/*---------------------------*/
+
+
+
+
+/*---------------------------*/
+/*-------LIST GESTION--------*/
+/*----------BEGIN------------*/
+/*---------------------------*/
+
+/*---------------------------*/
+/*-------LIST GESTION--------*/
+/*-----------END-------------*/
+/*---------------------------*/
+
+
+
+
+/*---------------------------*/
+/*-------IMAGE GESTION-------*/
+/*----------BEGIN------------*/
+/*---------------------------*/
+
+
+/*--------IMAGE PRINT--------*/
+/*----------BEGIN------------*/
+* {
+box-sizing: border-box;
+}
+
+.header {
+    text-align: center;
+    padding: 32px;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+    -ms-flex: 25%;
+    flex: 25%;
+    max-width: 25%;
+    padding: 0 4px;
+}
+
+.column img {
+    margin-top: 8px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+    .column {
+        -ms-flex: 50%;
+        flex: 50%;
+        max-width: 50%;
+    }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column {
+        -ms-flex: 100%;
+        flex: 100%;
+        max-width: 100%;
+    }
+}
+/*------------END------------*/
+/*--------IMAGE PRINT--------*/
+
+/*--------IMAGE FADE---------*/
+/*----------BEGIN------------*/
+.hovereffect {
+    width: 100%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default;
+    background: #333;
+}
+
+.hovereffect .overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    padding: 50px 20px;
+}
+
+.hovereffect img {
+    display: block;
+    position: relative;
+    max-width: none;
+    width: calc(100% + 20px);
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: translate3d(-10px,0,0);
+    transform: translate3d(-10px,0,0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.hovereffect:hover img {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.hovereffect h2 {
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    font-size: 17px;
+    overflow: hidden;
+    padding: 0.5em 0;
+    background-color: transparent;
+}
+
+.hovereffect h2:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    content: '';
+    -webkit-transition: -webkit-transform 0.35s;
+    transition: transform 0.35s;
+    -webkit-transform: translate3d(-100%,0,0);
+    transform: translate3d(-100%,0,0);
+}
+
+.hovereffect:hover h2:after {
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.hovereffect a, .hovereffect p {
+    color: #FFF;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: translate3d(100%,0,0);
+    transform: translate3d(100%,0,0);
+}
+
+.hovereffect:hover a, .hovereffect:hover p {
+    opacity: 1;
+    filter: alpha(opacity=100);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+/*------------END------------*/
+/*--------IMAGE FADE---------*/
+
+
+/*---------------------------*/
+/*------------END------------*/
+/*-------IMAGE GESTION-------*/
+/*---------------------------*/
+
+
+
+
+/*---------------------------*/
+/*------ARTISTS GESTION------*/
+/*----------BEGIN------------*/
+/*---------------------------*/
+*,
+:before,
+:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+.wrapper {
+    text-align: center;
+}
+
+.title {
+    font-size: 2em;
+    position: relative;
+    margin: 0 auto 1em;
+    padding: 1em 1em .25em 1em;
+    text-align: center;
+    text-transform: uppercase;
+}
+.title:after {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 240px;
+    height: 4px;
+    margin-left: -120px;
+    content: '';
+    background-color: #fff;
+}
+
+/* Clip text element */
+.clip-text {
+    font-size: 6em;
+    font-weight: bold;
+    line-height: 1;
+    position: relative;
+    display: inline-block;
+    margin: .25em;
+    padding: .5em .75em;
+    text-align: center;
+    /* Color fallback */
+    color: #fff;
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+.clip-text:before,
+.clip-text:after {
+    position: absolute;
+    content: '';
+}
+
+/* Background */
+.clip-text:before {
+    z-index: -2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: inherit;
+}
+
+/* Text Background (black zone) */
+.clip-text:after {
+    position: absolute;
+    z-index: -1;
+    top: .125em;
+    right: .125em;
+    bottom: .125em;
+    left: .125em;
+    background-color: #333;
+}
+
+/* Change the background position to display letter when the black zone isn't here */
+.clip-text--no-textzone:before {
+    background-position: -.75em 0;
+}
+
+.clip-text--no-textzone:after {
+    content: none;
+}
+
+/* Use Background-size cover for photo background and no-repeat background */
+.clip-text--cover,
+.clip-text--cover:before {
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+            background-size: cover;
+  background-position: 50% 50%;
+}
+
+/* Background image from http://thepatternlibrary.com/ and http://lorempixel.com */
+.clip-text_one {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/614367458543009802/65309671_p0.jpg);
+}
+
+.clip-text_two {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/614367622259277824/33474413_p0.jpg);
+}
+
+.clip-text_tree {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/614367774520639488/66337051_p0.png);
+}
+
+.clip-text_four {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/614367313579474944/70306105_p0.jpg);
+}
+
+.clip-text_five {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/615485356321669146/55314483_p0.png);
+}
+
+.clip-text_six {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/615485665102135296/D5EjFakU4AELMJG.jpeg);
+}
+
+.clip-text_seven {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/615485841380212736/50943159_p0.png);
+}
+
+.clip-text_eight {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/633570112292519936/73838366_p0.jpg);
+}
+
+.clip-text_nine {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/633570831192031242/62549677_p0.jpg);
+}
+
+.clip-text_ten {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/633571585437073418/67243791_p0.jpg);
+}
+
+.clip-text_eleven {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/633574600017444884/76316055_p0.png);
+}
+
+.clip-text_twelve {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/633575939921412096/68211458_p0.jpg);
+}
+
+.clip-text_thirdteen {
+    background-image: url(https://cdn.discordapp.com/attachments/614105388194725899/633576747274600469/76134058_p0.jpg);
+}
+/*---------- SAMPLE ----------*/
+/*
+.clip-text_X {
+    background-image: url();
+}
+*/
+
+/*---------------------------*/
+/*------------END------------*/
+/*------ARTISTS GESTION------*/
+/*---------------------------*/
+
+
+
+
+/*---------------------------*/
+/*-----SCROLL UP GESTION-----*/
+/*----------BEGIN------------*/
+/*---------------------------*/
+
+html {
+    scroll-behavior: smooth;
+}
+
+#section1 {
+    height: 0px;
+    background-color:#333;
+}
+/*---------------------------*/
+/*------------END------------*/
+/*-----SCROLL UP GESTION-----*/
+/*---------------------------*/

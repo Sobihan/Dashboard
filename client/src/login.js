@@ -2,7 +2,7 @@ import React from 'react'
 import GoogleLogin from 'react-google-login';
 import ReactDOM from 'react-dom'
 import App from './App'
-
+import './style.css';
 
 function setConfig(usr)
 {
@@ -151,26 +151,45 @@ export default class Login extends React.Component {
     }
     render() {
         return (        
-        <div>
-            <div id="error">
+        <body>
 
-            </div>
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Usermane:
-                    <input type="text" name="email" onChange={this.changeEmail}/>
-                </label>
+            <h4>Dashboard</h4>
+
                 <br/>
-                <label>
-                    Password:
-                    <input type="password" name="password" onChange={this.changePassword}/>
-                </label>
-                <br/>
-                <input type="submit" value="Login"/>
-            </form>
-            <form onSubmit={this.signup}>
-                <input type="submit" value="Signup"/>
-            </form>
+                <form onSubmit={this.handleSubmit}>
+
+                    <label>
+                        Usermane
+                        <br/>
+                        <input type="text" name="email" onChange={this.changeEmail}/>
+                    </label>
+
+                    <br/><br/>
+
+                    <label>
+                        Password
+                        <br/>
+                        <input type="password" name="password" onChange={this.changePassword}/>
+                    </label>
+
+                    <br/><br/>
+
+                    <div id="error"></div>
+
+                    <br/>
+
+                    <a href="#section1" class="button2">
+                    <input type="submit" value="Login"/>
+                    </a>
+
+                </form>
+
+                <a href="#section1" class="button2">
+                <form onSubmit={this.signup}>
+                    <input type="submit" value="Signup"/>
+                </form>
+                </a>
+
             <br/>
             <GoogleLogin
             clientId="97814789611-7ud57c3jc8d0jjmh9b9puks1j8tvl30e.apps.googleusercontent.com"
@@ -179,7 +198,8 @@ export default class Login extends React.Component {
             onFailure={this.failureGoogle}
             cookiePolicy={'single_host_origin'}
             />
-        </div>
+
+        </body>
         );
     }
 }
