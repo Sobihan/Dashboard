@@ -55,7 +55,7 @@ function createAccount(user, psw)
     });
 }
 
-function getConfig(user)
+function getConfig(user, isGoogle)
 {
     fetch('http://localhost:8080/getConfig', {
         method: 'post',
@@ -67,9 +67,17 @@ function getConfig(user)
     }).then(res => res.json())
     .then(res => {
         window.widgets = res;
+        if (isGoogle == true) {
+        try {
         if (res["server"]["services"][0]["widgets"][0]["params"][0]["name"] == "city") {
             reformat(user);
         }
+        
+        }catch(error)
+        {
+            console.log(error)
+        }
+    }
         window.isLogin = true;
         window.user = user;
         ReactDOM.render(<App/>,  document.getElementById('root'))
@@ -92,14 +100,14 @@ function login(user, psw)
             document.getElementById("error").innerHTML = res['answer'];
             return;
         } else {
-            getConfig(user);
+            getConfig(user, false);
         }
     })
 }
 
 function logGoogle(usr)
 {
-    getConfig(usr);
+    getConfig(usr, true);
 
 }
 export default class Login extends React.Component {
